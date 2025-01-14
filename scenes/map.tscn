@@ -1,0 +1,51 @@
+[gd_scene load_steps=8 format=3 uid="uid://bt86owengrd8w"]
+
+[ext_resource type="PackedScene" uid="uid://41xfkaaqp4jr" path="res://scenes/player.tscn" id="1_b3kit"]
+[ext_resource type="Script" path="res://scenes/room_generation_dfs.gd" id="2_qyuia"]
+[ext_resource type="PackedScene" uid="uid://vfiiir63dh62" path="res://scenes/rooms/1x1.tscn" id="3_8do2u"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_hfx8f"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_6cod0"]
+sky_material = SubResource("ProceduralSkyMaterial_hfx8f")
+
+[sub_resource type="Environment" id="Environment_1sl0j"]
+background_mode = 2
+background_energy_multiplier = 0.0
+sky = SubResource("Sky_6cod0")
+ambient_light_sky_contribution = 0.0
+ambient_light_energy = 0.0
+tonemap_mode = 2
+ssao_enabled = true
+ssil_enabled = true
+sdfgi_enabled = true
+sdfgi_use_occlusion = true
+sdfgi_read_sky_light = false
+glow_enabled = true
+glow_bloom = 0.32
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_xinsa"]
+
+[node name="Map" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1sl0j")
+
+[node name="Moon" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+light_color = Color(0.773891, 0.875907, 0.879758, 1)
+light_energy = 0.262
+shadow_enabled = true
+
+[node name="GroundPlane" type="StaticBody3D" parent="."]
+
+[node name="Collision" type="CollisionShape3D" parent="GroundPlane"]
+shape = SubResource("WorldBoundaryShape3D_xinsa")
+
+[node name="Player" parent="." instance=ExtResource("1_b3kit")]
+
+[node name="Rooms" type="Node3D" parent="."]
+script = ExtResource("2_qyuia")
+room_scene = ExtResource("3_8do2u")

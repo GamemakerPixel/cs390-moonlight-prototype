@@ -1,0 +1,80 @@
+Snow, Becoming your enemy, No bounce lighting
+  Hunting a snow monster in an endless night
+  Growing stronger by being evil
+  Slowly transform with the cold
+
+Airplanes, Riding, Luminesance
+  Controlling cell towers' lights
+  Trying to prevent airplane crashes
+  Limited number of lights
+
+Water, Investigation, Placing Traps
+  Investigating crash of UFO underwater
+  Aliens only visible with trail cams
+  Use cameras to notify you of enemy locations
+
+Boat, Harmonies, Betrayal
+  Sirens
+  Give up either sight or sound at a time to avoid certain enemies
+
+Turtles, RPG, Silence
+  Avoiding predators
+  Exploring a large, oversized city as a turtle, little to no guidance from the game
+
+Rougelike, In a computer, Long Intro
+  Finding the skip button
+  Writing a script by exploring a computer in a rougelike style
+  Writing your own weapons
+
+Ice, Musical Tiles, Piano
+  Rhythm game about escaping an ice cavern
+  Fight with rhythm choice
+  Musical icicles
+
+Luminesance, Long Intro, Teaching
+  Light puzzles
+
+Werewolves, Grey, Teaching
+  Finding the werewolf in the group
+  Werewolf on a mission to save the world
+  Nuclear survival as a werewolf
+
+Placing Traps, In a computer, Duality
+  Game where player is an AI trying to detect other AIs living in society
+
+Faith, Stars, No bounce lighting
+  Following the starlight
+  Trying to find purpose by suriving in the dessert
+
+Blue, Luminesance, Early Morning
+  Trying to find a magical doorway only open at dawn
+
+
+Shapeshifting
+Werewolf
+Moonlight
+Seeking purpose in a desolate dessert
+Stars
+Lost in time
+Sanity System
+Setting traps for self
+Recording self
+Exiled to the dessert until you see the full moon
+Spirits
+Strongest connection to the spirits and guidence when close to full moons
+Hunger worsens symptoms
+Cursed by the fog
+Actually win by fusing two identities, gaining the control to look at the full moon
+Fog
+Curse is actually a way to separate "you" from memories of trauma from the past
+
+
+Realizations
+  Text-based RPG
+  2D Top Down
+  2D Multiplayer
+  3D Singleplayer
+  3D Multiplayer
+
+
+

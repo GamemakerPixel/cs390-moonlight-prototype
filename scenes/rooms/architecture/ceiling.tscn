@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://bjbm35pylsk6g"]
+
+[ext_resource type="ArrayMesh" uid="uid://dbspogcy2c10b" path="res://assets/meshes/rooms/architecture/ceiling.obj" id="1_8govg"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_v233k"]
+size = Vector3(7.6, 0.2, 7.6)
+
+[node name="Ceiling" type="StaticBody3D"]
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_8govg")
+
+[node name="Ceiling" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.9, 0)
+shape = SubResource("BoxShape3D_v233k")

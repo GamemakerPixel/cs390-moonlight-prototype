@@ -1,0 +1,34 @@
+Rougelike dungeon generation
+Enemies can quickly kill the player in human form
+Enemies will run towards the player attempting to do melee damage.
+Player can run in human form, but will have stamina, limited to around 5 seconds
+Player can loot chests for healing items and moonlight bottles
+Player can enter werewolf form by standing below a moonlight window or drinking a moonlight bottle
+Player will lose manual control and pursue the nearest enemy when in werewolf form (ideally accompanied by 
+cool red visual effects)
+Player will one-shot enemies when in werewolf form.
+Enemies will switch to fleeing the player when they're in werewolf form.
+Player will have a "moonlight" indicator appear in the UI, after which they will fall to the ground for
+a 1 second recovery period, after which they will get up and have to wait for stamina to regenerate.
+(Maybe make this less punishing)
+Moonlight is regenerated should the werewolf run under a moonlight window.
+Maybe werewolf can shatter chests with moonlight bottles to regenerate moonlight.
+
+Progression forces the player to choose to boost either their human form (better at fighting enemies)
+or their werewolf form (better at avoiding traps and staying in werewolf form).
+
+Initial tradeoffs of each form:
+  Human
+    Full player control
+    Weak at fighting enemies
+    Able to avoid traps
+    Limited stamina
+    Stealth, can hide, avoid attracting attention
+    Can loot chests
+  Werewolf
+    No player control
+    Powerful for fighting enemies
+    Not able to avoid traps
+    Unlimited stamina
+    No stealth, can't hide, increased attention from enemies
+    Can't loot chests

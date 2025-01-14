@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://16i7bewl635w"
+path="res://.godot/imported/floor.obj-0ec2a3ce5c91f3b5a60c4198b6b5d4d8.mesh"
+
+[deps]
+
+files=["res://.godot/imported/floor.obj-0ec2a3ce5c91f3b5a60c4198b6b5d4d8.mesh"]
+
+source_file="res://assets/meshes/rooms/architecture/floor.obj"
+dest_files=["res://.godot/imported/floor.obj-0ec2a3ce5c91f3b5a60c4198b6b5d4d8.mesh", "res://.godot/imported/floor.obj-0ec2a3ce5c91f3b5a60c4198b6b5d4d8.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false
