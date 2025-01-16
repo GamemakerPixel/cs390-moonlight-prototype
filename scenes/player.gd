@@ -40,6 +40,8 @@ func _physics_process(_delta: float) -> void:
 
 
 func become_werewolf() -> void:
+	if not werewolf:
+		$TransformSound.play()
 	werewolf = true
 	$WerewolfTimer.start()
 
@@ -61,7 +63,7 @@ func _rotate(local_position: Vector2) -> void:
 
 func _on_enemy_collided(body: Node3D) -> void:
 	if werewolf:
-		body.queue_free()
+		body.on_destroyed()
 	else:
 		game_over.emit()
 		$UI.game_over()

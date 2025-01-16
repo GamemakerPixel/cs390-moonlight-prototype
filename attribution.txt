@@ -1,1 +1,11 @@
 res://assets/fonts/PlaywriteAUSA-VariableFont_wght.ttf - Open Font License - TypeTogether, Veronika Burian, José Scaglione - Google Fonts
+
+Yeti Roar - Skiing Game - Roar SFX Remix (1 of 2) by el_boss -- https://freesound.org/s/751712/ -- License: Creative Commons 0
+	Used as part of werewolf transform sound
+Spacecraft Hover 02.wav by Glitchedtones -- https://freesound.org/s/375951/ -- License: Creative Commons 0
+	Used with modification (crossfades) as enemy hovering sound
+Shimmer glass by Dasgoat -- https://freesound.org/s/361704/ -- License: Creative Commons 0
+	Used as part of werewolf transform sound
+Crumple aluminum foil.wav by itinerantmonk108 -- https://freesound.org/s/557560/ -- License: Creative Commons 0
+	Used as part of enemy destroyed sound
+	(Other part was recorded by me)

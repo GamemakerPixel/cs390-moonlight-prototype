@@ -59,6 +59,10 @@ func target_last_seen_position() -> void:
 	navigation.target_position = target_last_seen
 
 
+func on_destroyed() -> void:
+	$Animation.play("destroyed")
+
+
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_accept"):
 		navigation.target_position = Vector3.ZERO
@@ -76,3 +80,7 @@ func _refresh_room_exploration_queue() -> void:
 	while (not possibilities.is_empty()):
 		var random_index := randi_range(0, possibilities.size() - 1)
 		room_exploration_queue.append(possibilities.pop_at(random_index))
+
+
+func _on_animation_finished(anim_name: StringName) -> void:
+	queue_free()
