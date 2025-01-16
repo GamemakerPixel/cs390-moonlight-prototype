@@ -1,8 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://bt86owengrd8w"]
+[gd_scene load_steps=12 format=3 uid="uid://bt86owengrd8w"]
 
 [ext_resource type="PackedScene" uid="uid://41xfkaaqp4jr" path="res://scenes/player.tscn" id="1_b3kit"]
+[ext_resource type="Script" path="res://scenes/map.gd" id="1_cj6dj"]
 [ext_resource type="Script" path="res://scenes/room_generation_dfs.gd" id="2_qyuia"]
+[ext_resource type="Script" path="res://scenes/navigation.gd" id="2_u6msh"]
 [ext_resource type="PackedScene" uid="uid://vfiiir63dh62" path="res://scenes/rooms/1x1.tscn" id="3_8do2u"]
+[ext_resource type="Script" path="res://scenes/enemies.gd" id="5_xxg2t"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_hfx8f"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -15,6 +18,7 @@ sky_material = SubResource("ProceduralSkyMaterial_hfx8f")
 background_mode = 2
 background_energy_multiplier = 0.0
 sky = SubResource("Sky_6cod0")
+ambient_light_color = Color(0.92, 0.74704, 0.6992, 1)
 ambient_light_sky_contribution = 0.0
 ambient_light_energy = 0.0
 tonemap_mode = 2
@@ -28,15 +32,21 @@ glow_bloom = 0.32
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_xinsa"]
 
+[sub_resource type="NavigationMesh" id="NavigationMesh_cpc64"]
+geometry_parsed_geometry_type = 1
+agent_radius = 1.0
+
 [node name="Map" type="Node3D"]
+script = ExtResource("1_cj6dj")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_1sl0j")
 
 [node name="Moon" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
 light_color = Color(0.773891, 0.875907, 0.879758, 1)
 light_energy = 0.262
+light_bake_mode = 1
 shadow_enabled = true
 
 [node name="GroundPlane" type="StaticBody3D" parent="."]
@@ -46,6 +56,23 @@ shape = SubResource("WorldBoundaryShape3D_xinsa")
 
 [node name="Player" parent="." instance=ExtResource("1_b3kit")]
 
-[node name="Rooms" type="Node3D" parent="."]
+[node name="Navigation" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_cpc64")
+script = ExtResource("2_u6msh")
+
+[node name="Rooms" type="Node3D" parent="Navigation"]
 script = ExtResource("2_qyuia")
 room_scene = ExtResource("3_8do2u")
+map_dimentions = Vector2i(24, 24)
+open_ceiling_probability = 0.1
+loop_probability = 0.15
+torch_probability = 0.6
+
+[node name="Enemies" type="Node3D" parent="."]
+script = ExtResource("5_xxg2t")
+minimum_distance_from_player = 24.0
+spawn_probability = 0.1
+
+[connection signal="game_over" from="Player" to="." method="_on_game_over"]
+[connection signal="generation_done" from="Navigation/Rooms" to="." method="_on_rooms_generation_done"]
+[connection signal="generation_done" from="Navigation/Rooms" to="Navigation" method="_on_rooms_generation_done"]

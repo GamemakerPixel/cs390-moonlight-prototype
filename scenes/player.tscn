@@ -1,16 +1,35 @@
-[gd_scene load_steps=4 format=3 uid="uid://41xfkaaqp4jr"]
+[gd_scene load_steps=10 format=3 uid="uid://41xfkaaqp4jr"]
 
 [ext_resource type="Script" path="res://scenes/player.gd" id="1_3ltwh"]
+[ext_resource type="Script" path="res://scenes/ui.gd" id="2_2b6sh"]
+[ext_resource type="Theme" uid="uid://is4ykapkticp" path="res://default.tres" id="2_nn1lp"]
+[ext_resource type="Script" path="res://scenes/game_over_buttons.gd" id="4_511r8"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_jerwj"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_d806g"]
 
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_gdo00"]
+radius = 0.52
+
+[sub_resource type="Gradient" id="Gradient_lncjw"]
+offsets = PackedFloat32Array(0.571429, 1)
+colors = PackedColorArray(0.23, 0.046, 0.0858667, 0, 0.56, 0.112, 0, 0.596078)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_r3mwc"]
+gradient = SubResource("Gradient_lncjw")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 1)
+
 [node name="Player" type="CharacterBody3D"]
+collision_layer = 2
+collision_mask = 5
 script = ExtResource("1_3ltwh")
 
 [node name="Mesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+gi_mode = 0
 mesh = SubResource("CapsuleMesh_jerwj")
 
 [node name="Camera" type="Camera3D" parent="."]
@@ -20,3 +39,90 @@ current = true
 [node name="Collision" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_d806g")
+
+[node name="Hitbox" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+
+[node name="Collision" type="CollisionShape3D" parent="Hitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CylinderShape3D_gdo00")
+
+[node name="Light" type="OmniLight3D" parent="."]
+light_energy = 0.2
+
+[node name="WerewolfTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="UI" type="CanvasLayer" parent="."]
+script = ExtResource("2_2b6sh")
+
+[node name="GameOver" type="Control" parent="UI"]
+process_mode = 3
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="UI/GameOver"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.08, 0.08, 0.08, 0.635294)
+
+[node name="Margin" type="MarginContainer" parent="UI/GameOver"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_nn1lp")
+theme_override_constants/margin_left = 250
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 250
+theme_override_constants/margin_bottom = 100
+
+[node name="VBox" type="VBoxContainer" parent="UI/GameOver/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="MenuLabel" type="Label" parent="UI/GameOver/Margin/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 36
+text = "Game Over!"
+horizontal_alignment = 1
+
+[node name="Buttons" type="VBoxContainer" parent="UI/GameOver/Margin/VBox"]
+layout_mode = 2
+script = ExtResource("4_511r8")
+
+[node name="TryAgain" type="Button" parent="UI/GameOver/Margin/VBox/Buttons"]
+layout_mode = 2
+text = "Try Again"
+
+[node name="Quit" type="Button" parent="UI/GameOver/Margin/VBox/Buttons"]
+layout_mode = 2
+text = "Quit
+"
+
+[node name="WerewolfOverlay" type="TextureRect" parent="UI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_r3mwc")
+
+[connection signal="body_entered" from="Hitbox" to="." method="_on_enemy_collided"]
+[connection signal="pressed" from="UI/GameOver/Margin/VBox/Buttons/TryAgain" to="UI/GameOver/Margin/VBox/Buttons" method="_on_try_again"]
+[connection signal="pressed" from="UI/GameOver/Margin/VBox/Buttons/Quit" to="UI/GameOver/Margin/VBox/Buttons" method="_on_quit"]

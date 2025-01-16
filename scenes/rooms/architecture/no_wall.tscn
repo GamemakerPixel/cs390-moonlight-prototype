@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://1t40hc4ypipd"]
+[gd_scene load_steps=4 format=3 uid="uid://1t40hc4ypipd"]
 
 [ext_resource type="ArrayMesh" uid="uid://dykys2eb7o06b" path="res://assets/meshes/rooms/architecture/no_wall.obj" id="1_nf787"]
+[ext_resource type="Material" uid="uid://das086ci6ygfk" path="res://resources/materials/bricks.tres" id="2_crmkt"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7jvph"]
 size = Vector3(0.2, 0.2, 7.6)
@@ -9,6 +10,7 @@ size = Vector3(0.2, 0.2, 7.6)
 
 [node name="Mesh" type="MeshInstance3D" parent="."]
 mesh = ExtResource("1_nf787")
+surface_material_override/0 = ExtResource("2_crmkt")
 
 [node name="Collision" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.9, 0)

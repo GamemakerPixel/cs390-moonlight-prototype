@@ -1,0 +1,76 @@
+[gd_scene load_steps=12 format=3 uid="uid://p10iqjw5j73o"]
+
+[ext_resource type="ArrayMesh" uid="uid://bwbiox8r47g8a" path="res://assets/meshes/enemy.obj" id="1_8c22n"]
+[ext_resource type="Script" path="res://scenes/enemy/enemy.gd" id="1_81img"]
+[ext_resource type="Script" path="res://scenes/enemy/sight.gd" id="3_1g3m3"]
+[ext_resource type="Script" path="res://scenes/enemy/enemy_state_machine.gd" id="3_ya4qh"]
+[ext_resource type="Script" path="res://scenes/enemy/states/patrol.gd" id="4_2767e"]
+[ext_resource type="Script" path="res://scenes/enemy/states/chase.gd" id="5_np451"]
+[ext_resource type="Script" path="res://scenes/enemy/states/search_last.gd" id="6_yleqe"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d3om4"]
+albedo_color = Color(0.273672, 0.302837, 0.304348, 1)
+metallic = 0.9
+roughness = 0.2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_umild"]
+albedo_color = Color(0.97, 0.34532, 0.3007, 1)
+emission_enabled = true
+emission = Color(0.89, 0.128605, 0.1157, 1)
+emission_energy_multiplier = 2.26
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_qqp5h"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_y434t"]
+points = PackedVector3Array(0, -1, 0, 0, 1, 0, -10, -1, -16, -10, 1, -16, 10, -1, -16, 10, 1, -16)
+
+[node name="Enemy" type="CharacterBody3D"]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_81img")
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+gi_mode = 0
+mesh = ExtResource("1_8c22n")
+surface_material_override/0 = SubResource("StandardMaterial3D_d3om4")
+surface_material_override/1 = SubResource("StandardMaterial3D_umild")
+
+[node name="Collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CylinderShape3D_qqp5h")
+
+[node name="NavigationAgent" type="NavigationAgent3D" parent="."]
+target_desired_distance = 0.5
+path_height_offset = 0.3
+
+[node name="Sight" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+script = ExtResource("3_1g3m3")
+
+[node name="Collision" type="CollisionShape3D" parent="Sight"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+shape = SubResource("ConvexPolygonShape3D_y434t")
+
+[node name="Ray" type="RayCast3D" parent="Sight"]
+enabled = false
+target_position = Vector3(0, -1, -10)
+collision_mask = 3
+
+[node name="States" type="Node" parent="."]
+script = ExtResource("3_ya4qh")
+
+[node name="Patrol" type="Node" parent="States"]
+script = ExtResource("4_2767e")
+
+[node name="Chase" type="Node" parent="States"]
+script = ExtResource("5_np451")
+
+[node name="SearchLast" type="Node" parent="States"]
+script = ExtResource("6_yleqe")
+
+[connection signal="body_entered" from="Sight" to="Sight" method="_on_target_entered_range"]
+[connection signal="body_exited" from="Sight" to="Sight" method="_on_target_exited_range"]

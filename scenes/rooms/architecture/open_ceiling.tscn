@@ -1,15 +1,34 @@
-[gd_scene load_steps=3 format=3 uid="uid://c4c51krci53ed"]
+[gd_scene load_steps=6 format=3 uid="uid://c4c51krci53ed"]
 
 [ext_resource type="ArrayMesh" uid="uid://8ux3vc2gmvya" path="res://assets/meshes/rooms/architecture/open_ceiling.obj" id="1_1m6ec"]
+[ext_resource type="Script" path="res://scenes/rooms/architecture/moonlight.gd" id="2_4xesb"]
+[ext_resource type="Material" uid="uid://das086ci6ygfk" path="res://resources/materials/bricks.tres" id="2_l6hjw"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_v233k"]
 size = Vector3(7.6, 0.2, 7.6)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_cy0r4"]
+height = 6.0
+radius = 2.0
 
 [node name="Ceiling" type="StaticBody3D"]
 
 [node name="Mesh" type="MeshInstance3D" parent="."]
 mesh = ExtResource("1_1m6ec")
+surface_material_override/0 = ExtResource("2_l6hjw")
 
 [node name="Ceiling" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.9, 0)
 shape = SubResource("BoxShape3D_v233k")
+
+[node name="Moonlight" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+script = ExtResource("2_4xesb")
+
+[node name="Collision" type="CollisionShape3D" parent="Moonlight"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+shape = SubResource("CylinderShape3D_cy0r4")
+
+[connection signal="body_entered" from="Moonlight" to="Moonlight" method="_on_player_entered"]

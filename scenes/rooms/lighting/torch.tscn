@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://bqrbxj4oa01ti"]
+
+[ext_resource type="ArrayMesh" uid="uid://d1557vequtd56" path="res://assets/meshes/rooms/lighting/torch.obj" id="1_yjjs8"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_2qqlx"]
+frequency = 0.008
+fractal_octaves = 2
+domain_warp_enabled = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_p6up3"]
+seamless = true
+as_normal_map = true
+bump_strength = 15.2
+noise = SubResource("FastNoiseLite_2qqlx")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2ti7i"]
+albedo_color = Color(0.304228, 0.139431, 0.0127505, 1)
+roughness = 0.74
+normal_enabled = true
+normal_texture = SubResource("NoiseTexture2D_p6up3")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_usv5f"]
+albedo_color = Color(0.972558, 0.725183, 0.52449, 1)
+emission_enabled = true
+emission = Color(0.83627, 0.446621, 0.282321, 1)
+emission_energy_multiplier = 2.8
+
+[node name="Torch" type="MeshInstance3D"]
+transform = Transform3D(-1.31134e-07, 0, 3, 0, 3, 0, -3, 0, -1.31134e-07, 0, 0, 0)
+cast_shadow = 0
+mesh = ExtResource("1_yjjs8")
+surface_material_override/0 = SubResource("StandardMaterial3D_2ti7i")
+surface_material_override/1 = SubResource("StandardMaterial3D_usv5f")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.225797, 0.333, 0)
+light_color = Color(0.94661, 0.56743, 0.290127, 1)
+light_bake_mode = 1
+shadow_enabled = true
